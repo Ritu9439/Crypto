@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_dark" />
+
+            <RadioGroup
+                android:id="@+id/timeseries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/timeseries_hour"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1h"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/timeseries_day"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="1d"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/timeseries_week"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1w"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/timeseries_month"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30d"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioButton
+                    android:id="@+id/timeseries_three_month"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3M"
+                    android:textColor="@color/colorPrimary" />
+
+            </RadioGroup>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_dark" />
+        </LinearLayout>
+
+
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/web"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:text="Hello World!"
+            android:background="@color/colorPrimary"
+            />
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:text="Open:"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/open"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="High:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/high"
+                android:textColor="@color/colorPrimary"
+
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="Low:"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/low"
+                android:textColor="@color/colorPrimary"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="Close"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/close"
+
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/date"
+            android:textColor="@color/colorPrimary"
+
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="1"
+                android:id="@+id/cointv"/>
+            <TextView
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/coinpricetv"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/comment"
+            android:id="@+id/addcomments"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Comments"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postdatalist"></android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/newCommentContainer"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/commentEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Enter your comments..."
+                android:inputType="textMultiLine"
+                android:maxHeight="@dimen/new_comment_max_height"
+                android:minHeight="@dimen/new_comment_min_height"
+                android:padding="@dimen/intrinsic_padding" />
+
+            <Button
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/intrinsic_padding"
+                android:background="@drawable/ic_menu_send"
+                android:minWidth="0dp"
+                android:paddingLeft="@dimen/large_intrinsic_padding"
+                android:paddingRight="@dimen/large_intrinsic_padding"
+
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

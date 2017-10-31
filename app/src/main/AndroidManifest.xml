@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="stock.cryptodocmarket">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="stock.cryptodocmarket.SplashActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="stock.cryptodocmarket.MyService"
+            android:enabled="true" />
+        <service
+            android:name="stock.cryptodocmarket.ForeignCompany.ForeignService"
+            android:enabled="true" />
+
+        <activity
+            android:name="stock.cryptodocmarket.MainActivity"
+            android:label="" />
+        <activity
+            android:name="stock.cryptodocmarket.InidanCompany.IndianGraph"
+            android:label="" />
+        <activity android:name="stock.cryptodocmarket.ForeignCompany.DetailedActivity"
+            android:label="" />
+        <activity android:name="stock.cryptodocmarket.ForeignCompany.GraphActivity"
+            android:label="" />
+        <activity android:name="stock.cryptodocmarket.Fragment.NewsFullScreen" />
+        <activity android:name="stock.cryptodocmarket.UserActivity"></activity>
+    </application>
+
+</manifest>
