@@ -72,10 +72,7 @@ public interface MyInterface {
     void getPost(@Query("marketname") String marketname, @Query("coinname") String coinname, Callback<Response> responseCallback);
 
 
-    @FormUrlEncoded
-    @POST("/addgraph.php")
-    public void addGraph(@Field("market") String market,
-                            @Field("ask") String ask, @Field("time") String time,Callback<Response> callback);
+
 
 
 

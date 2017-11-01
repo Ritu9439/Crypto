@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,7 +67,6 @@ public class ForeignFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
 
-                Toast.makeText(getActivity(), ""+ marketname[position], Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getActivity(),DetailedActivity.class);
                 intent.putExtra("marketname",""+ marketname[position]);
                 intent.putExtra("data",al2);

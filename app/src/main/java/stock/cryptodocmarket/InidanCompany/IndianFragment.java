@@ -69,8 +69,6 @@ ProgressBar progress;
         getHighScoreListFromSharedPreference();
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
         marketlist.setLayoutManager(layoutManager);
-        getActivity().startService(intent);
-        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(MyService.BROADCAST_ACTION));
 
 
         Log.d("datat",""+getHighScoreListFromSharedPreference());
@@ -82,6 +80,20 @@ ProgressBar progress;
             progress.setVisibility(View.GONE);
         }
         return v;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().startService(intent);
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(MyService.BROADCAST_ACTION));
+
     }
 
     @Override

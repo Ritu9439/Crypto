@@ -24,12 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +79,7 @@ RadioButton timeseries_hour;
     ArrayList<Entry> arrayList=new ArrayList<>();
     ArrayList<String> al=new ArrayList<>();
 TextView cointv,coinpricetv,open,high,low,close,date;
-    
+
 FloatingActionButton addNewPostFab;
     LinearLayout newCommentContainer;
     String email="",photo="";
@@ -111,6 +112,7 @@ SessionMarket sessionMarket;
         coinpricetv= (TextView) findViewById(R.id.coinpricetv);
         addcomments= (TextView) findViewById(R.id.addcomments);
         sendButton= (Button) findViewById(R.id.sendButton);
+        web.setOnChartValueSelectedListener(this);
 
         commentEditText= (EditText) findViewById(R.id.commentEditText);
         open= (TextView) findViewById(R.id.open);
@@ -1274,6 +1276,16 @@ SessionMarket sessionMarket;
                 dataset.setCircleSize(0f);
                 LineData datas=new LineData(al,dataset);
                 dataset.setValueTextColor(Color.TRANSPARENT);
+                XAxis xAxis = web.getXAxis();
+                xAxis.setTextColor(Color.WHITE);
+
+                YAxis leftAxis = web.getAxisLeft();
+                YAxis rightAxis = web.getAxisRight();
+                rightAxis.setTextColor(Color.TRANSPARENT);
+
+
+                leftAxis.setTextColor(Color.WHITE);
+
                 web.setData(datas);
                 web.invalidate();
 
@@ -1318,6 +1330,15 @@ SessionMarket sessionMarket;
                dataset.setColor(Color.WHITE);
                 dataset.setCircleSize(0f);
                 LineData datas = new LineData(al, dataset);
+                XAxis xAxis = web.getXAxis();
+                xAxis.setTextColor(Color.WHITE);
+
+                YAxis leftAxis = web.getAxisLeft();
+                YAxis rightAxis = web.getAxisRight();
+                rightAxis.setTextColor(Color.TRANSPARENT);
+
+
+                leftAxis.setTextColor(Color.WHITE);
 
                 dataset.setValueTextColor(Color.TRANSPARENT);
                 web.setData(datas);

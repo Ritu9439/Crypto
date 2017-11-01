@@ -18,12 +18,15 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +61,7 @@ import stock.cryptodocmarket.UserActivity;
 
 import static stock.cryptodocmarket.R.id.web;
 
-public class IndianGraph extends AppCompatActivity {
+public class IndianGraph extends AppCompatActivity implements OnChartValueSelectedListener {
     String market = "";
     RadioButton timeseries_hour;
     RadioGroup timeseries;
@@ -66,14 +69,19 @@ SessionManagement sessionManagement;
     LinearLayout newCommentContainer;
     TextView addcomments;
     LineChart lineChart;
+    ArrayList<String> al2=new ArrayList<>();
     private EditText commentEditText;
     Button sendButton;
     String email,photo;
     RecyclerView postdatalist;
     private String coin="BTC";
+    ArrayList<Entry> arrayList=new ArrayList<>();
+
     ArrayList<Comments> arraylistcomments=new ArrayList<>();
     CommentsAdapter commentAdapter;
     SessionMarket sessionMarket;
+    private TextView coinpricetv,cointv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +90,11 @@ SessionManagement sessionManagement;
         setContentView(R.layout.activity_indian_graph);
         newCommentContainer= (LinearLayout) findViewById(R.id.newCommentContainer);
         commentEditText= (EditText) findViewById(R.id.commentEditText);
+        cointv= (TextView) findViewById(R.id.cointv);
+        coinpricetv= (TextView) findViewById(R.id.coinpricetv);
+        lineChart= (LineChart) findViewById(web);
+        lineChart.setOnChartValueSelectedListener(this);
+
         sendButton= (Button) findViewById(R.id.sendButton);
         postdatalist= (RecyclerView) findViewById(R.id.postdatalist);
 RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
@@ -95,7 +108,9 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
         market = getIntent().getStringExtra("market");
         sessionMarket.createLoginSession(market,coin);
         timeseries.setVisibility(View.VISIBLE);
-        Toast.makeText(this, ""+market, Toast.LENGTH_SHORT).show();
+
+
+
         if (sessionManagement.isLoggedIn()){
 
             HashMap<String,String> hm=sessionManagement.getUserDetails();
@@ -118,13 +133,11 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 String    date = df.format(c.getTime());
-                Toast.makeText(IndianGraph.this, "sdsa"+email, Toast.LENGTH_SHORT).show();
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://cryptodoc.in/").build();
                 MyInterface myinterface = restAdapter.create(MyInterface.class);
                 myinterface.addComments(email, commentEditText.getText().toString(), date, market, coin, new retrofit.Callback<retrofit.client.Response>() {
                     @Override
                     public void success(retrofit.client.Response response, retrofit.client.Response response2) {
-                        Toast.makeText(IndianGraph.this, "Posted", Toast.LENGTH_SHORT).show();
                         getComments(market,coin);
                     }
 
@@ -309,7 +322,7 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                 getGraph();
                 timeseries.setVisibility(View.GONE);
             }
-            if (market.equalsIgnoreCase("Zebapi")){
+            if (market.equalsIgnoreCase("Zebpay")){
                 getGraph();
                 timeseries.setVisibility(View.GONE);
             }
@@ -362,7 +375,7 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
             }
 
     private void getGraph() {
-        lineChart= (LineChart) findViewById(web);
+
 
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://cryptodoc.in").build();
         MyInterface myinterface = restAdapter.create(MyInterface.class);
@@ -384,12 +397,30 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                     for (int i=0;i<jsonArray.length();i++) {
                         JSONObject jsonObj = jsonArray.getJSONObject(i);
 
+                        if (market.equalsIgnoreCase("Coin Secure")){
+
+                            if (jsonObj.getString("ask") != null && !jsonObj.getString("ask").isEmpty()) {
+
+                                Entry entry = new Entry(Float.parseFloat(String.valueOf(jsonObj.getString("ask").substring(0, jsonObj.getString("ask").length() - 2))), i);
+                                arrayList.add(entry);
 
 
-                            Entry entry=new Entry(Float.parseFloat(String.valueOf(jsonObj.getString("ask"))),i);
-                            arrayList.add(entry);
+                            }
 
-                    al.add(jsonObj.getString("time"));
+                            al.add(jsonObj.getString("time"));
+                            al2.add(jsonObj.getString("time"));
+                        }else {
+
+                            if (jsonObj.getString("ask") != null && !jsonObj.getString("ask").isEmpty()) {
+
+                                Entry entry = new Entry(Float.parseFloat(String.valueOf(jsonObj.getString("ask"))), i);
+                                arrayList.add(entry);
+
+                                al.add(jsonObj.getString("time"));
+                                al2.add(jsonObj.getString("time"));
+
+                            }
+                        }
 
 
                     }
@@ -398,6 +429,16 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                     dataset.setCircleSize(0f);
                     LineData datas = new LineData(al, dataset);
                     dataset.setValueTextColor(Color.TRANSPARENT);
+                    XAxis xAxis = lineChart.getXAxis();
+                    xAxis.setTextColor(Color.WHITE);
+
+                    YAxis leftAxis = lineChart.getAxisLeft();
+                    YAxis rightAxis = lineChart.getAxisRight();
+                    rightAxis.setTextColor(Color.TRANSPARENT);
+
+
+leftAxis.setTextColor(Color.WHITE);
+
 
                     lineChart.setData(datas);
                     lineChart.invalidate();
@@ -420,11 +461,9 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
         super.onBackPressed();
         sessionMarket.clearCoin();
         finish();
-        Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
     }
 
     private void getComments(String market, String coin) {
-        lineChart= (LineChart) findViewById(web);
 
         RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://cryptodoc.in").build();
         MyInterface myinterface = restAdapter.create(MyInterface.class);
@@ -441,7 +480,6 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
                     }
                     Log.d("asd",""+stringbuilder);
-                    Toast.makeText(IndianGraph.this, "output"+output, Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray=new JSONArray(""+stringbuilder);
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObj=jsonArray.getJSONObject(i);
@@ -471,7 +509,6 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
     private void getBTCchartMonth(String btc, String inr, String s, String localBitcoins) {
         MyInterface apiInterface= ApiClient.getClient().create(MyInterface.class);
 
-        lineChart= (LineChart) findViewById(web);
 
         Call<Example> responseBodyCall=apiInterface.getChartLTCMonth(btc,inr,s,localBitcoins);
         responseBodyCall.enqueue(new Callback<Example>() {
@@ -499,6 +536,15 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                 dataset.setCircleSize(0f);
                 LineData datas = new LineData(al, dataset);
                 dataset.setValueTextColor(Color.TRANSPARENT);
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setTextColor(Color.WHITE);
+
+                YAxis leftAxis = lineChart.getAxisLeft();
+                YAxis rightAxis = lineChart.getAxisRight();
+                rightAxis.setTextColor(Color.TRANSPARENT);
+
+                leftAxis.setTextColor(Color.WHITE);
+
                 lineChart.setData(datas);
                 lineChart.invalidate();
 
@@ -525,7 +571,6 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
     private void getChartETH() {
             MyInterface apiInterface= ApiClient.getClient().create(MyInterface.class);
-        lineChart= (LineChart) findViewById(web);
 
         Call<Example> responseBodyCall=apiInterface.getChartsETH();
             responseBodyCall.enqueue(new Callback<Example>() {
@@ -556,6 +601,14 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
                     LineData datas = new LineData(al, dataset);
                     datas.setValueTextColor(Color.TRANSPARENT);
+                    XAxis xAxis = lineChart.getXAxis();
+                    xAxis.setTextColor(Color.WHITE);
+
+                    YAxis leftAxis = lineChart.getAxisLeft();
+                    YAxis rightAxis = lineChart.getAxisRight();
+                    rightAxis.setTextColor(Color.TRANSPARENT);
+
+                    leftAxis.setTextColor(Color.WHITE);
 
                     lineChart.setData(datas);
                     lineChart.invalidate();
@@ -573,9 +626,7 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
 
     private void getChart(String btc, String usd, String s, String bitfinex) {
-        lineChart= (LineChart) findViewById(web);
 
-        Toast.makeText(IndianGraph.this, "called", Toast.LENGTH_SHORT).show();
         MyInterface apiInterface= ApiClient.getClient().create(MyInterface.class);
 
         Call<Example> responseBodyCall=apiInterface.getChart(btc,usd,s,bitfinex);
@@ -606,6 +657,15 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                 dataset.setCircleSize(0f);
                 LineData datas = new LineData(al, dataset);
                 dataset.setValueTextColor(Color.TRANSPARENT);
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setTextColor(Color.WHITE);
+
+                YAxis leftAxis = lineChart.getAxisLeft();
+                YAxis rightAxis = lineChart.getAxisRight();
+                rightAxis.setTextColor(Color.TRANSPARENT);
+
+                leftAxis.setTextColor(Color.WHITE);
+
                 lineChart.setData(datas);
                 lineChart.invalidate();
 
@@ -644,5 +704,24 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
 
         }
         return true;
+    }
+
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+
+        cointv.setText(""+e.getVal());
+
+if (al2.size()>0){
+    coinpricetv.setText(""+al2.get(e.getXIndex()));
+}
+else {
+    coinpricetv.setText("");
+}
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+
     }
 }

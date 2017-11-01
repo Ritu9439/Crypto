@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PowerManager mgr = (PowerManager)getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock");
-        wakeLock.acquire();
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(3);
         AdView adView = (AdView) findViewById(R.id.adView);
@@ -49,16 +47,6 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest=new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        startService(new Intent(this, MyService.class));
-        Calendar cal = Calendar.getInstance();
-        Intent intent = new Intent(this, MyService.class);
-        PendingIntent pintent = PendingIntent
-                .getService(this, 0, intent, 0);
-
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        // Start service every 20 seconds
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
-                9 * 1000, pintent);
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);

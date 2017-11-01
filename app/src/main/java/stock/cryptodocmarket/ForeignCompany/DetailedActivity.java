@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -62,7 +61,6 @@ ProgressBar progress;
         Log.d("asdada",""+marketname);
 
         getSupportActionBar().setTitle(marketname);
-        Toast.makeText(this, "" + marketname, Toast.LENGTH_SHORT).show();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DetailedActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -110,12 +108,19 @@ ProgressBar progress;
                 progress.setVisibility(View.GONE);
             }
         }
+      ;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         intent = new Intent(DetailedActivity.this, BroadcastReceiver.class);
 
         startService(intent);
 
         registerReceiver(broadcastReceiver, new IntentFilter(MyService.BROADCAST_ACTION));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
@@ -130,6 +135,12 @@ ProgressBar progress;
 
         }
         return true;
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unregisterReceiver(broadcastReceiver);
     }
     private ArrayList<ForeignMarket> getHighScoreListbitttrexFromSharedPreference() {
         //retrieve data from shared preference
@@ -318,7 +329,6 @@ ProgressBar progress;
                 }
                 if (marketname.equalsIgnoreCase("Bitstamp")) {
                     ArrayList<ForeignMarket> arrayList=new ArrayList<>();
-                    Toast.makeText(context, "came", Toast.LENGTH_SHORT).show();
                     arrayList = intent.getParcelableArrayListExtra("bitstamp");
                     Log.d("sbitstamp",""+arrayList);
                     saveScoreListToSharedpreferencebitstamp(arrayList);

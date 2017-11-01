@@ -2,15 +2,9 @@ package stock.cryptodocmarket;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.support.annotation.IntDef;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,14 +39,9 @@ public class MyService extends Service {
         return null;
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
-    }
 
     @Override
     public void onCreate() {
-        Toast.makeText(this, " MyService Created ", Toast.LENGTH_LONG).show();
         Log.d("servicess",""+System.currentTimeMillis());
         intent = new Intent(BROADCAST_ACTION);
     }
@@ -121,7 +110,6 @@ public class MyService extends Service {
 
 
                     getBitfinex();
-                    Toast.makeText(MyService.this, "OKKK", Toast.LENGTH_SHORT).show();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -269,7 +257,6 @@ public class MyService extends Service {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(MyService.this, "bitstamp"+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -503,7 +490,6 @@ public class MyService extends Service {
                     }
                     JSONObject jsonobiect = new JSONObject("" + stringbuilder);
                     JSONObject childobj = jsonobiect.getJSONObject("message");
-                    Toast.makeText(getApplicationContext(), " Data Refreshed", Toast.LENGTH_LONG).show();
 
 
                     String buy = childobj.getString("ask");
@@ -515,7 +501,6 @@ public class MyService extends Service {
                     IndianMarket indianMarket = new IndianMarket(market, buy.substring(0, buy.length() - 2), sell.substring(0, sell.length() - 2), url, coin,time);
 indianMarkets.add(indianMarket);
                     Log.d("graphadded",""+indianMarkets+" "+buy.substring(0, buy.length() - 2)+" ");
-                    addGraph(market,buy.substring(0, buy.length() - 2),time);
                    callZebapi("https://www.zebapi.com",indianMarkets);
 
                 } catch (IOException e) {
@@ -528,27 +513,10 @@ indianMarkets.add(indianMarket);
 
             @Override
             public void failure(RetrofitError error) {
-
             }
         });
     }
 
-    private void addGraph(String market, String buy, String time) {
-        RestAdapter restAdapter=new RestAdapter.Builder().setEndpoint("http://cryptodoc.in/").build();
-        MyInterface myinterface=restAdapter.create(MyInterface.class);
-        myinterface.addGraph(market, buy, time, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-                Toast.makeText(MyService.this, "added", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(MyService.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -579,9 +547,8 @@ indianMarkets.add(indianMarket);
                     String sell=jsonobiect.getString("sell");
 
 
-                    IndianMarket indianMarket=new IndianMarket("Zebapi",buy,sell,s,"BTC","");
+                    IndianMarket indianMarket=new IndianMarket("Zebpay",buy,sell,s,"BTC","");
                     indianMarkets.add(indianMarket);
-                    addGraph("Zebapi",buy,sell);
                     callUnocoin("https://www.unocoin.com",indianMarkets);
 
 
@@ -720,7 +687,8 @@ indianMarkets.add(indianMarket);
                     indianMarket.setSell(temp_price);
                     indianMarket.setTime("");
                     indianMarkets.add(indianMarket);
-                    getEthexIndia("https://ethexindia.com/",indianMarkets);
+
+                    getBitXoxo("https://api.bitxoxo.com/",indianMarkets);
 
 
                 } catch (IOException e) {
@@ -757,8 +725,9 @@ indianMarkets.add(indianMarket);
                     long last_traded_time = jsonobiect.getLong("last_traded_time_IST");
                     IndianMarket indianMarket = new IndianMarket("ETHEXIndia", buy, "-", s, "BTC","");
                     indianMarkets.add(indianMarket);
+                    intent.putParcelableArrayListExtra("indianlist", indianMarkets);
 
-                    getBitXoxo("https://api.bitxoxo.com/",indianMarkets);
+                    getBittrex();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -794,12 +763,10 @@ indianMarkets.add(indianMarket);
                     JSONObject jsonobiect=new JSONObject(""+stringbuilder);
                     String buy=jsonobiect.getString("buy");
                     String sell=jsonobiect.getString("sell");
-                    addGraph("BitXOXO",buy,sell);
                     IndianMarket marketData=new IndianMarket("BitXOXO",buy,sell,s,"BTC","");
                    indianMarkets.add(marketData);
-                    intent.putParcelableArrayListExtra("indianlist", indianMarkets);
+                    getEthexIndia("https://ethexindia.com/",indianMarkets);
 
-                   getBittrex();
 
 
                 } catch (IOException e) {
@@ -819,7 +786,6 @@ indianMarkets.add(indianMarket);
     @Override
     public void onDestroy() {
         // TODO Auto-generated method stub
-        Toast.makeText(this, "Servics Stopped", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 
