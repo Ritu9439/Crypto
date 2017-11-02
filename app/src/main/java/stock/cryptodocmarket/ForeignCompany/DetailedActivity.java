@@ -189,6 +189,12 @@ ProgressBar progress;
         return arrayList;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private ArrayList<ForeignMarket> getHighScoreListkrakenFromSharedPreference() {
         //retrieve data from shared preference
         String jsonScore = sharedPreference.getHighScoreListKraken();
