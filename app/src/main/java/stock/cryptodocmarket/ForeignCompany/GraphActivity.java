@@ -125,7 +125,7 @@ SessionMarket sessionMarket;
         market=getIntent().getStringExtra("market");
         coinpricetv.setText(coinprice);
         cointv.setText(coin);
-        Toast.makeText(this, market+"-"+coin, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, market+"-"+coin, Toast.LENGTH_SHORT).show();
         sessionMarket.createLoginSession(market,coin);
 
             HashMap<String,String> hm1=sessionMarket.getCoinDetails();
@@ -163,13 +163,13 @@ SessionMarket sessionMarket;
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 String    date = df.format(c.getTime());
-                Toast.makeText(GraphActivity.this, "sdsa"+email, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(GraphActivity.this, "sdsa"+email, Toast.LENGTH_SHORT).show();
                 RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("http://cryptodoc.in/").build();
                 MyInterface myinterface = restAdapter.create(MyInterface.class);
                 myinterface.addComments(email, commentEditText.getText().toString(), date, market, coin, new retrofit.Callback<retrofit.client.Response>() {
                     @Override
                     public void success(retrofit.client.Response response, retrofit.client.Response response2) {
-                        Toast.makeText(GraphActivity.this, "Posted", Toast.LENGTH_SHORT).show();
+                //        Toast.makeText(GraphActivity.this, "Posted", Toast.LENGTH_SHORT).show();
                         getComments(market,coin);
                     }
 
@@ -192,7 +192,7 @@ SessionMarket sessionMarket;
         postdatalist.setLayoutManager(layoutManager);
        
      
-        Toast.makeText(this, market+"h"+coin, Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this, market+"h"+coin, Toast.LENGTH_SHORT).show();
         web.setOnChartValueSelectedListener(this);
         if(market != null && !market.isEmpty()) {
             if (market.equalsIgnoreCase("Bitfinex")) {
@@ -1218,7 +1218,7 @@ SessionMarket sessionMarket;
 
                     }
                     Log.d("asd",""+stringbuilder);
-                    Toast.makeText(GraphActivity.this, "output"+output, Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(GraphActivity.this, "output"+output, Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray=new JSONArray(""+stringbuilder);
                     for (int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObj=jsonArray.getJSONObject(i);
@@ -1293,7 +1293,7 @@ SessionMarket sessionMarket;
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
-                Toast.makeText(GraphActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(GraphActivity.this, ""+t, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1348,7 +1348,7 @@ SessionMarket sessionMarket;
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
-                Toast.makeText(GraphActivity.this, ""+t, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(GraphActivity.this, ""+t, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1359,7 +1359,7 @@ SessionMarket sessionMarket;
         super.onBackPressed();
         sessionMarket.clearCoin();
         finish();
-        Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "back", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void onStart() {

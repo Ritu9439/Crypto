@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         indianFragment=new IndianFragment();
         foreignFragment=new ForeignFragment();
         newsFragment =new NewsFragment();
-        adapter.addFragment(indianFragment,"INDIAN COMPANY");
-        adapter.addFragment(foreignFragment,"FOREIGN COMPANY");
+        adapter.addFragment(indianFragment,"INDIAN EXCHANGE");
+        adapter.addFragment(foreignFragment,"FOREIGN EXCHANGE");
         adapter.addFragment(newsFragment,"NEWS");
         viewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();
