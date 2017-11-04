@@ -99,7 +99,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            Toast.makeText(this, "loggedin", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "loggedin", Toast.LENGTH_SHORT).show();
             loggedin.setVisibility(View.VISIBLE);
             loggedout.setVisibility(View.GONE);
             // User is logged in
@@ -135,7 +135,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        Toast.makeText(UserActivity.this,""+credential.getProvider(),Toast.LENGTH_LONG).show();
+   //     Toast.makeText(UserActivity.this,""+credential.getProvider(),Toast.LENGTH_LONG).show();
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -183,7 +183,7 @@ useremail.setText(name);
 */
 
                         }else {
-                            Toast.makeText(UserActivity.this,"Something went wrong"+name,Toast.LENGTH_LONG).show();
+                  //          Toast.makeText(UserActivity.this,"Something went wrong"+name,Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -200,7 +200,7 @@ useremail.setText(name);
                     public void onResult(@NonNull Status status) {
 
                         sessionManagement.logoutUser();
-                        Toast.makeText(UserActivity.this, "Logout", Toast.LENGTH_SHORT).show();
+                //        Toast.makeText(UserActivity.this, "Logout", Toast.LENGTH_SHORT).show();
 
                     }
                 });

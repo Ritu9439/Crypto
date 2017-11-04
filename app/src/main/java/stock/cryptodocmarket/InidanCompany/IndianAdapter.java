@@ -129,7 +129,7 @@ al=arrayList;
         public void onClick(View view) {
             int position = getAdapterPosition();
             IndianMarket indianMarket=al.get(position);
-            Toast.makeText(ctx, ""+indianMarket.getMarket(), Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(ctx, ""+indianMarket.getMarket(), Toast.LENGTH_SHORT).show();
 
 
             Intent intent=new Intent(ctx, IndianGraph.class);

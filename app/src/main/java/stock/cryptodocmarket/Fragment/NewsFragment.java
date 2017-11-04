@@ -63,7 +63,7 @@ public class NewsFragment extends Fragment {
         newslist= (RecyclerView) v.findViewById(R.id.newslist);
         layoutManager=new LinearLayoutManager(getActivity());
         newslist.setLayoutManager(layoutManager);
-        Toast.makeText(getActivity(), "redere", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getActivity(), "redere", Toast.LENGTH_SHORT).show();
 
 
         new MyNewsAsync().execute();
