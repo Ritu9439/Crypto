@@ -47,14 +47,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         NewsData newsData = (NewsData) arrayList.get(position);
         holder.title.setText(newsData.getTitle());
-        holder.header.setText(newsData.getHeader());
+        //holder.header.setText(newsData.getHeader());
         holder.pubDate.setText(newsData.getPubDate());
-        holder.description.setText(Html.fromHtml(newsData.getDescription()));
+       //holder.description.setText(Html.fromHtml(newsData.getDescription()));
 
-        /*Glide.with(context).load(newsData.getImage()).into(holder.image);
+        Glide.with(context).load(newsData.getImage()).into(holder.image);
         //holder.image.setImageResource(newsData.getImage());
-        Log.d("dataa",newsData.getImage());
-*/
+        Log.d("dataa",newsData.getDescription());
+
 
     }
 

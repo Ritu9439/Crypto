@@ -7,6 +7,7 @@
     android:layout_margin="5dp"
     app:cardElevation="5dp"
     android:padding="10dp"
+app:cardBackgroundColor="@color/colorPrimary"
     app:contentPadding="10dp"
     app:cardCornerRadius="5dp"
     >
@@ -20,12 +21,12 @@
             android:padding="5dp">
 
             <ImageView
-android:visibility="gone"
                 android:src="@mipmap/ic_launcher"
                 android:id="@+id/image"
+                android:scaleType="fitXY"
 
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
                 android:layout_weight="1"/>
 
 
@@ -37,7 +38,7 @@ android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
                 android:id="@+id/title"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -48,6 +49,7 @@ android:visibility="gone"
             <TextView
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/header"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="On Today's Episode"
@@ -58,10 +60,11 @@ android:visibility="gone"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text=""
             android:id="@+id/description"
             android:textStyle="bold"
             android:maxLines="4"
+            android:textColor="#d1d0d0"
             android:minLines="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
         <LinearLayout
@@ -76,7 +79,7 @@ android:visibility="gone"
 
                 android:textStyle="bold"
                 android:id="@+id/link"
-                android:textColor="#2418cf"/>
+                android:textColor="#000"/>
             <TextView
                 android:textColor="#fff"
                 android:id="@+id/pubDate"

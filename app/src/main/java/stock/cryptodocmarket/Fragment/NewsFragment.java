@@ -38,7 +38,8 @@ import stock.cryptodocmarket.R;
 public class NewsFragment extends Fragment {
 
    // String url="http://www.bitnewz.net/rss/Feed/25";
-    String url="https://letstalkbitcoin.com/rss/feed/blog?limit=35&sites=1&categories=7,13,15,16,30";
+    String url="https://cointelegraph.com/rss";
+    //String url="https://letstalkbitcoin.com/rss/feed/blog?limit=35&sites=1&categories=7,13,15,16,30";
     RecyclerView newslist;
     ArrayList<NewsData> arrayList=new ArrayList<>();
     NewsAdapter newsAdapter;
@@ -91,8 +92,9 @@ public class NewsFragment extends Fragment {
                     String title=getDOMdata(element,"title");
                     String pubDate=getDOMdata(element,"pubDate");
                     String description=getDOMdata(element,"description");
+                    String mediacontent=getDOMdata(element,"media:content");
                     Pattern p = Pattern.compile(imgRegex);
-                    Matcher m = p.matcher(description);
+                    Matcher m = p.matcher(description.replace("<img>", ""));
                     String link=getDOMdata(element,"link");
                     NewsData newsdata=new NewsData("",title,pubDate,"",description,link);
                     if (m.find()) {

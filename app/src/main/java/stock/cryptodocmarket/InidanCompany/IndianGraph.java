@@ -436,7 +436,7 @@ RecyclerView.LayoutManager layout=new LinearLayoutManager(IndianGraph.this);
                     YAxis rightAxis = lineChart.getAxisRight();
                     rightAxis.setTextColor(Color.TRANSPARENT);
 
-
+lineChart.setDescription("");
 leftAxis.setTextColor(Color.WHITE);
 
 
@@ -546,6 +546,7 @@ leftAxis.setTextColor(Color.WHITE);
                 leftAxis.setTextColor(Color.WHITE);
 
                 lineChart.setData(datas);
+                lineChart.setDescription("");
                 lineChart.invalidate();
 
             }
@@ -609,7 +610,7 @@ leftAxis.setTextColor(Color.WHITE);
                     rightAxis.setTextColor(Color.TRANSPARENT);
 
                     leftAxis.setTextColor(Color.WHITE);
-
+                    lineChart.setDescription("");
                     lineChart.setData(datas);
                     lineChart.invalidate();
 
@@ -665,7 +666,7 @@ leftAxis.setTextColor(Color.WHITE);
                 rightAxis.setTextColor(Color.TRANSPARENT);
 
                 leftAxis.setTextColor(Color.WHITE);
-
+                lineChart.setDescription("");
                 lineChart.setData(datas);
                 lineChart.invalidate();
 

@@ -190,7 +190,7 @@ SessionMarket sessionMarket;
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         postdatalist.setLayoutManager(layoutManager);
-       
+        web.setDescription("");
      
     //    Toast.makeText(this, market+"h"+coin, Toast.LENGTH_SHORT).show();
         web.setOnChartValueSelectedListener(this);
@@ -1283,7 +1283,7 @@ SessionMarket sessionMarket;
                 YAxis rightAxis = web.getAxisRight();
                 rightAxis.setTextColor(Color.TRANSPARENT);
 
-
+                web.setDescription("");
                 leftAxis.setTextColor(Color.WHITE);
 
                 web.setData(datas);
@@ -1336,7 +1336,7 @@ SessionMarket sessionMarket;
                 YAxis leftAxis = web.getAxisLeft();
                 YAxis rightAxis = web.getAxisRight();
                 rightAxis.setTextColor(Color.TRANSPARENT);
-
+                web.setDescription("");
 
                 leftAxis.setTextColor(Color.WHITE);
 
