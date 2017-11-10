@@ -9,6 +9,7 @@ import android.os.PowerManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(),"ca-app-pub-2755525358188689/7890379459");
         AdRequest adRequest=new AdRequest.Builder().build();
         adView.loadAd(adRequest);
-
+      //  Toast.makeText(this, "heeeloooo", Toast.LENGTH_SHORT).show();
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
@@ -78,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         indianFragment=new IndianFragment();
         foreignFragment=new ForeignFragment();
         newsFragment =new NewsFragment();
-        adapter.addFragment(indianFragment,"INDIAN EXCHANGE");
-        adapter.addFragment(foreignFragment,"FOREIGN EXCHANGE");
+        adapter.addFragment(indianFragment,"INDIAN");
+        adapter.addFragment(foreignFragment,"FOREIGN");
         adapter.addFragment(newsFragment,"NEWS");
         viewPager.setAdapter(adapter);
         adapter.notifyDataSetChanged();

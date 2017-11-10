@@ -93,7 +93,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 if (view.getId()== R.id.link){
     int position = getAdapterPosition();
     NewsData data = arrayList.get(position);
-    Toast.makeText(ctx, "" + data.getLink(), Toast.LENGTH_SHORT).show();
+    // Toast.makeText(ctx, "" + data.getLink(), Toast.LENGTH_SHORT).show();
 
     Intent intent=new Intent(ctx, NewsFullScreen.class);
     intent.putExtra("website",data.getLink());
